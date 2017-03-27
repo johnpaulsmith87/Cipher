@@ -120,18 +120,13 @@ namespace Cipher
                                    Console.WriteLine("The most likely key is: " + match.Item2);
                                }
                                else
-                               {
                                    Console.WriteLine("Result: " + match.Item1 + " --- Key: " + match.Item2);
-
-                               }
                            });
                     else
                         Console.WriteLine("No matches :(");
 
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
-                    //Determine how many keys that have at least 
-
                 }
                 else
                     exit = true;
