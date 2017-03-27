@@ -56,7 +56,7 @@ namespace Cipher
 
                     var cipherTextWords = cipherText.Split(' ');
                     foreach (var word in cipherTextWords)
-                        recoveredText += DecryptCiperText(word, shiftKey) + " ";
+                        recoveredText += DecryptCipherText(word, shiftKey) + " ";
 
                     // display cipher text then perform decryption
                     Console.WriteLine("The cipher text for message:'" + message + "' is: " + cipherText);
@@ -94,7 +94,7 @@ namespace Cipher
                         string result = string.Empty;
                         foreach (var word in words)
                         {
-                            var currentWord = DecryptCiperText(word, key);
+                            var currentWord = DecryptCipherText(word, key);
                             result += currentWord + " ";
                             if (oSpell.TestWord(currentWord))
                             {
@@ -148,7 +148,7 @@ namespace Cipher
             }
             return result;
         }
-        public static string DecryptCiperText(string input, int key)
+        public static string DecryptCipherText(string input, int key)
         {
             string result = string.Empty;
             foreach (var letter in input)
