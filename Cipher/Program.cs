@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using NetSpell.SpellChecker.Dictionary;
+using NetSpell.SpellChecker;
 
 namespace Cipher
 {
@@ -72,7 +73,7 @@ namespace Cipher
                     Console.WriteLine("Will list all possible matches (in order of likelihood)");
 
                     // fun time!
-                    List<Tuple<string, int>> allMatchingPossibilities = new List<Tuple<string, int>>();
+                    List<Tuple<string, int, int>> allMatchingPossibilities = new List<Tuple<string, int, int>>();
 
                     string cipherText = Console.ReadLine();
                     while (!Regex.IsMatch(cipherText, @"^\s?([a-zA-Z]\s?){1,}$"))
@@ -84,7 +85,7 @@ namespace Cipher
                     WordDictionary dict = new WordDictionary();
                     dict.DictionaryFile = "en-US.dic";
                     dict.Initialize();
-                    NetSpell.SpellChecker.Spelling oSpell = new NetSpell.SpellChecker.Spelling();
+                    Spelling oSpell = new Spelling();
 
                     oSpell.Dictionary = dict;
 
@@ -103,11 +104,11 @@ namespace Cipher
                         }
                         if (matchCount > 0)
                         {
-                            allMatchingPossibilities.Add(Tuple.Create(result.Trim(), key));
+                            allMatchingPossibilities.Add(Tuple.Create(result.Trim(), key, matchCount));
                         }
                     }
                     // sorting in descending order in terms of matches
-                    allMatchingPossibilities.OrderByDescending(match => match.Item2);
+                    allMatchingPossibilities = allMatchingPossibilities.OrderByDescending(match => match.Item3).ToList();
                     bool first = true;
                     if (allMatchingPossibilities.Count > 0)
                         allMatchingPossibilities.ForEach(match =>
